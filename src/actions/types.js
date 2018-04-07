@@ -1,0 +1,5 @@
+export const FETCH_USER    = 'FETCH_USER'
+export const FETCH_PROFILE = 'FETCH_PROFILE'
+export const FETCH_FRIENDS = 'FETCH_FRIENDS'
+export const SING_IN       = 'SING_IN'
+export const SING_OUT      = 'SING_OUT'
