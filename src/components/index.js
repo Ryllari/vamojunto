@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCurrentUser, singOut } from '../actions'
 import firebase from 'firebase'
 
 import LoginForm from './LoginForm'
-import { Button, Spinner } from './common'
+import Home from './home'
+import { Button, Spinner, Card, CardSection } from './common'
 
+
+const vamojuntoInitImg = require('../statics/img/vamojunto_init.png')
 
 class Index extends Component {
 
@@ -24,18 +27,15 @@ class Index extends Component {
   }
 
   renderContent() {
-    console.log("USER:", this.props.user)
+    const { vamojuntoInitStyle } = styles
+
     switch (this.props.user.logged) {
       case true:
-        return (
-          <Button onPress={this.onLogOutPress.bind(this)}>
-            Log Out
-          </Button>
-        )
+        return <Home />
       case false:
         return <LoginForm />
       default:
-        return <Spinner size="large" />
+        return <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
     }
   }
 
@@ -45,6 +45,11 @@ class Index extends Component {
         {this.renderContent()}
       </View>
     )
+  }
+}
+
+const styles = {
+  vamojuntoInitStyle: {
   }
 }
 

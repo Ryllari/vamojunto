@@ -25,18 +25,16 @@ export const createUser = (email, password) => {
 }
 
 export const fetchCurrentUser = (user) => {
-  return dispatch({
+  return dispatch => dispatch({
     type: FETCH_USER,
     payload: user
   })
 }
 
-export const singIn = (email, password) => {
+export const singIn = (email, password, callback) => {
   return dispatch => firebase.auth()
     .signInWithEmailAndPassword(email, password)
     .then(user => {
-      console.log('signInWithEmailAndPassword:', user)
-
       if (user !== undefined) {
         dispatch({
           type: FETCH_USER,
@@ -59,7 +57,7 @@ export const singIn = (email, password) => {
       }
     })
     .catch((error) => {
-      console.log(`code: ${error.code} message: ${error.message}`)
+      callback(error)
     })
 }
 

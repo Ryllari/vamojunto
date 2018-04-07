@@ -20,21 +20,27 @@ class LoginForm extends Component {
     }
   }
 
-  onButtonPress() {
+  onSingInPress() {
     const { email, password } = this.state
 
-    this.props.singIn(email, password)
+    this.setState({ loading: true })
+    this.props.singIn(email, password, (error) => {
+      console.log(`code: ${error.code} message: ${error.message}`)
+      this.setState({ loading: false })
+    })
   }
 
-  renderButton() {
-    console.log("STATE:", this.state)
+  onSingUpPress() {
 
+  }
+
+  renderSingInButton() {
     if (this.state.loading) {
       return <Spinner size="small" />
     }
 
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
+      <Button onPress={this.onSingInPress.bind(this)}>
         Log in
       </Button>
     )
@@ -67,7 +73,13 @@ class LoginForm extends Component {
         </Text>
 
         <CardSection>
-          {this.renderButton()}
+          {this.renderSingInButton()}
+        </CardSection>
+
+        <CardSection>
+          <Button onPress={this.onSingUpPress.bind(this)}>
+            Cadastrar
+          </Button>
         </CardSection>
       </Card>
     )
