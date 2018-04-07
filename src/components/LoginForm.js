@@ -13,8 +13,8 @@ class LoginForm extends Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      email: 'teste@vamojunto.com',
+      password: '123456',
       error: '',
       loading: false
     }

@@ -23,7 +23,6 @@ class App extends Component {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
         <View>
-          <Header headerText="Vamo Junto?" />
           <Index />
         </View>
       </Provider>

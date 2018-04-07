@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "firebase": "^4.12.1",
+    "native-base": "^2.4.1",
     "react": "16.3.1",
     "react-native": "0.55.1",
+    "react-native-maps": "^0.21.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"

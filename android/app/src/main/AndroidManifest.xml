@@ -4,6 +4,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyA9O4ZvXE3396O8IHR1CV7Pn8L0Yk4suFw"/>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"

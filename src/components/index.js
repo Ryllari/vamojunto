@@ -26,7 +26,7 @@ class Index extends Component {
     this.props.singOut()
   }
 
-  renderContent() {
+  render() {
     const { vamojuntoInitStyle } = styles
 
     switch (this.props.user.logged) {
@@ -37,14 +37,6 @@ class Index extends Component {
       default:
         return <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
     }
-  }
-
-  render() {
-    return (
-      <View>
-        {this.renderContent()}
-      </View>
-    )
   }
 }
 
