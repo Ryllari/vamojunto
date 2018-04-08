@@ -27,6 +27,7 @@ export default (state = initState, action) => {
         uid: action.payload.uid,
         name: action.payload.name,
         email: action.payload.email,
+        stars: action.payload.stars,
         photoURL: action.payload.photoURL
       }
 

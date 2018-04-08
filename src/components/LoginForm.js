@@ -28,6 +28,8 @@ import {
 } from 'native-base'
 import { singIn } from '../actions'
 
+import CreateProfile from './create-profile'
+
 
 const vamojuntoLogo = require("../statics/img/logo.png")
 
@@ -41,7 +43,8 @@ class LoginForm extends Component {
       email: 'teste@vamojunto.com',
       password: '123456',
       error: '',
-      loading: false
+      loading: false,
+      profile: true
     }
   }
 
@@ -56,7 +59,7 @@ class LoginForm extends Component {
   }
 
   onSingUpPress() {
-
+    this.setState({ profile: false })
   }
 
   renderSingInButton() {
@@ -83,41 +86,45 @@ class LoginForm extends Component {
       containerStyle,
     } = styles
 
-    return (
-      <Container style={{flex: 1, marginTop: 30}}>
-        <Content>
-          <Image style={vamojuntoLogoStyle} source={vamojuntoLogo} />
-          <Form style={{marginTop: 60, marginHorizontal:20}}>
-            <Item floatingLabel>
-              <Label style={whiteColorStyle}>Email</Label>
-              <Input
-                style={inputStyle}
-                label="Email"
-                value={this.state.email}
-                onChangeText={email => this.setState({ email })}
-              />
-            </Item>
-            <Item floatingLabel last>
-              <Label style={whiteColorStyle}>Password</Label>
-              <Input
-                style={inputStyle}
-                secureTextEntry
-                value={this.state.password}
-                onChangeText={password => this.setState({ password })}
-              />
-            </Item>
-          </Form>
-          
-          <Button transparent warning style={{alignSelf:'flex-end'}}><Text>Esqueceu sua senha?</Text></Button>
-          
-          <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={this.onSingInPress.bind(this)}>
-            <Text style={whiteColorStyle}>Entrar</Text>
-          </Button>
-          <Text style={noRegisterStyle}>Ainda não tem conta?</Text>
-          <Button transparent warning style={{alignSelf:'center',}}><Text>REGISTRE-SE</Text></Button>
-        </Content>
-      </Container>
-    )
+    if (this.state.profile)
+      return (
+        <Container style={{flex: 1, marginTop: 30}}>
+          <Content>
+            <Image style={vamojuntoLogoStyle} source={vamojuntoLogo} />
+            <Form style={{marginTop: 60, marginHorizontal:20}}>
+              <Item floatingLabel>
+                <Label style={whiteColorStyle}>Email</Label>
+                <Input
+                  style={inputStyle}
+                  label="Email"
+                  value={this.state.email}
+                  onChangeText={email => this.setState({ email })}
+                />
+              </Item>
+              <Item floatingLabel last>
+                <Label style={whiteColorStyle}>Password</Label>
+                <Input
+                  style={inputStyle}
+                  secureTextEntry
+                  value={this.state.password}
+                  onChangeText={password => this.setState({ password })}
+                />
+              </Item>
+            </Form>
+
+            <Button transparent warning style={{alignSelf:'flex-end'}}><Text>Esqueceu sua senha?</Text></Button>
+
+            <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={this.onSingInPress.bind(this)}>
+              <Text style={whiteColorStyle}>Entrar</Text>
+            </Button>
+            <Text style={noRegisterStyle}>Ainda não tem conta?</Text>
+            <Button transparent warning style={{alignSelf:'center',}} onPress={this.onSingUpPress.bind(this)}>
+              <Text>REGISTRE-SE</Text>
+            </Button>
+          </Content>
+        </Container>
+      )
+    return <CreateProfile />
   }
 }
 
