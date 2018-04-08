@@ -1,10 +1,35 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  View,
+  Dimensions
+  } from 'react-native';
 import { connect } from 'react-redux'
 
+import {
+  Body,
+  Button,
+  Container,
+  Content,
+  Footer,
+  FooterTab,
+  Form,
+  Header,
+  Icon,
+  Input,
+  Item,
+  Label,
+  Left,
+  Right,
+  Text,
+  Title
+} from 'native-base'
 import { singIn } from '../actions'
-import { Button, Card, CardSection, Input, Spinner } from './common'
 
+
+const vamojuntoLogo = require("../statics/img/logo.png")
 
 class LoginForm extends Component {
 
@@ -47,51 +72,57 @@ class LoginForm extends Component {
   }
 
   render() {
+    const { containerStyle, vamojuntoInitStyle } = styles
+
     return (
-      <Card>
-        <CardSection>
-          <Input
-            placeholder="user@gmail.com"
-            label="Email"
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            placeholder="password"
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-          />
-        </CardSection>
-
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
-
-        <CardSection>
-          {this.renderSingInButton()}
-        </CardSection>
-
-        <CardSection>
-          <Button onPress={this.onSingUpPress.bind(this)}>
-            Cadastrar
+      <Container style={containerStyle}>
+        <Content>
+          <Image style={vamojuntoInitStyle} source={vamojuntoLogo} />
+          <Form>
+            <Item inlineLabel>
+              <Label>Email</Label>
+              <Input
+                placeholder="user@gmail.com"
+                label="Email"
+                value={this.state.email}
+                onChangeText={email => this.setState({ email })}
+              />
+            </Item>
+            <Item inlineLabel last>
+              <Label>Password</Label>
+              <Input
+                secureTextEntry
+                placeholder="password"
+                label="Password"
+                value={this.state.password}
+                onChangeText={password => this.setState({ password })}
+              />
+            </Item>
+          </Form>
+          <Button>
+            <Text>Login</Text>
           </Button>
-        </CardSection>
-      </Card>
+          <Button>
+            <Text>Cadastrar</Text>
+          </Button>
+        </Content>
+      </Container>
     )
   }
 }
 
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2B2D5C',
+  },
+  vamojuntoInitStyle: {
+    flex: 1,
+    width: Dimensions.get('window').width,
   }
-}
+})
 
 export default connect(null, { singIn })(LoginForm)

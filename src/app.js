@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import reduxThunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
@@ -7,6 +6,7 @@ import reducers from './reducers'
 import firebase from 'firebase'
 import { FIREBASE_API_KEY } from './config/keys'
 
+import { Container } from 'native-base'
 import Index from './components/index'
 import { Header } from './components/common'
 
@@ -20,13 +20,21 @@ class App extends Component {
   }
 
   render() {
+    const { containerStyle } = styles
+
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
-        <View>
+        <Container style={containerStyle}>
           <Index />
-        </View>
+        </Container>
       </Provider>
     )
+  }
+}
+
+const styles = {
+  containerStyle: {
+    backgroundColor: '#2B2D5C'
   }
 }
 

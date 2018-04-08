@@ -13,18 +13,23 @@ import {
   Icon,
   Text
 } from 'native-base'
-import MapView from 'react-native-maps'
 
-
-const initialRegion = {
-  latitude: 37.78825,
-  longitude: -122.4324,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
-}
 
 class Home extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+    }
+  }
+
+  componentDidMount() {
+  }
+
   render() {
+    const { contentStyle } = styles
+
     return (
       <Container>
         <Header>
@@ -34,12 +39,11 @@ class Home extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Vamo Junto</Title>
+            <Title>Vamo Junto?</Title>
           </Body>
           <Right />
         </Header>
         <Content>
-          <MapView initialRegion={initialRegion}/>
         </Content>
         <Footer>
           <FooterTab>
