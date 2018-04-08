@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Dimensions, Image } from 'react-native'
+import { View, Dimensions, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCurrentUser, singOut } from '../actions'
 import firebase from 'firebase'
@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import LoginForm from './LoginForm'
 import Home from './home'
 import Main from './main'
+import { Container } from 'native-base';
 
 
 const vamojuntoInitImg = require('../statics/img/icon-app.png')
@@ -28,6 +29,7 @@ class Index extends Component {
 
   render() {
     const { vamojuntoInitStyle } = styles
+    console.disableYellowBox = true;
 
     switch (this.props.user.logged) {
       case true:
@@ -35,8 +37,13 @@ class Index extends Component {
       case false:
         return <LoginForm />
       default:
-        return <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
-    }
+        return (
+          <Container>
+        <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
+        <Text style={{alignSelf: 'center', color:'#FFF', marginTop:-40}} >Por que ir só se você pode ir acompanhado?</Text>
+        </Container>
+        ) 
+      }
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, DrawerLayoutAndroid } from 'react-native'
+import { Dimensions, Image, Modal, TouchableHighlight, DrawerLayoutAndroid, TextInput } from 'react-native'
 import {
   Body,
   Button,
@@ -20,11 +20,14 @@ import {
   Right,
   Text,
   Title,
-  View
+  View,
+  Textarea,
 } from 'native-base'
 
 
 const persons = require('../statics/img/map.png')
+const person = require('../statics/img/rafaela.png')
+const star = require('../statics/img/star.png')
 
 class Mark extends Component {
 
@@ -33,10 +36,15 @@ class Mark extends Component {
 
     this.state = {
       meeting_point: '',
-      transport: 'car'
+      transport: 'car',
+      modalVisible: false,
     }
 
     this.selecteTransport = this.selecteTransport.bind(this)
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   selecteTransport(select) {
@@ -52,30 +60,36 @@ class Mark extends Component {
 
     return (
       <Content style={{alignSelf: 'center', }}>
-        <Image style={personsStyle} source={persons} />
-        <Form>
+        <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Image style={personsStyle} source={persons} />
+          </TouchableHighlight>
+        <Form style={{backgroundColor: '#2B2D5C'}}>
           <Item floatingLabel>
-            <Label>Ponto de Encontro</Label>
+            <Label style={{color:'#FFF'}}>Ponto de Encontro</Label>
             <Input
               value={this.state.meeting_point}
               onChangeText={meeting_point => this.setState({ meeting_point })}
             />
           </Item>
           <Item floatingLabel last>
-            <Label>Destino</Label>
+            <Label style={{color:'#FFF'}} >Destino</Label>
             <Input
               value={this.state.destiny}
               onChangeText={destiny => this.setState({ destiny })}
             />
           </Item>
-          <Text>Vamo Junto de:</Text>
+          <Text style={{marginTop: 20, color:'#FFF'}} >Vamo Junto de:</Text>
           <ListItem>
             <Left>
-              <Icon name="body" />
+              <Icon style={{color:'#FFF'}} name="body" />
             </Left>
-            <Text>A Pé</Text>
+            <Text style={{color:'#FFF'}}>A Pé</Text>
             <Right>
               <Radio
+                style={{color:'#FFF'}}
                 onPress={() => this.selecteTransport("foot")}
                 selected={this.state.transport == "foot" ? true : false}
               />
@@ -83,11 +97,12 @@ class Mark extends Component {
           </ListItem>
           <ListItem>
             <Left>
-              <Icon name="bicycle" />
+              <Icon style={{color:'#FFF'}} name="bicycle" />
             </Left>
-            <Text>Bicicleta</Text>
+            <Text style={{color:'#FFF'}}>Bicicleta</Text>
             <Right>
               <Radio
+                style={{color:'#FFF'}}
                 onPress={() => this.selecteTransport("bike")}
                 selected={this.state.transport == "bike" ? true : false}
               />
@@ -95,11 +110,12 @@ class Mark extends Component {
           </ListItem>
           <ListItem>
             <Left>
-              <Icon name="speedometer" />
+              <Icon style={{color:'#FFF'}} name="speedometer" />
             </Left>
-            <Text>Carro</Text>
+            <Text style={{color:'#FFF'}}>Carro</Text>
             <Right>
               <Radio
+                style={{color:'#FFF'}}
                 onPress={() => this.selecteTransport("car")}
                 selected={this.state.transport == "car" ? true : false}
               />
@@ -107,20 +123,41 @@ class Mark extends Component {
           </ListItem>
           <ListItem>
             <Left>
-              <Icon name="train" />
+              <Icon style={{color:'#FFF'}} name="train" />
             </Left>
-            <Text>Ônibus</Text>
+            <Text style={{color:'#FFF'}}>Ônibus</Text>
             <Right>
               <Radio
+                style={{color:'#FFF'}}
                 onPress={() => this.selecteTransport("bus")}
                 selected={this.state.transport == "bus" ? true : false}
               />
             </Right>
           </ListItem>
-          <Button style={buttonMarkStyle}>
-            <Text>Marcar</Text>
-          </Button>
         </Form>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              alert('Modal has been closed.');
+            }}>
+            <View style={{ flex: 1, marginTop: 100, color:'#2B2D5C', alignSelf: 'center'}}>
+              <View>
+                <Image style={{alignSelf: 'center', color:'#2B2D5C'}} source={person} />
+                <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >Gleydeanne Lucena</Text>
+                <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >3,9 <Image source={star} /></Text>
+                <Item floatingLabel regular last style={{height:40, marginTop: 20, color:'#FFF'}}>
+                  <Label>Escreva uma mensagem...</Label>
+                  <TextInput style={{height:40, marginTop: 20}}/>
+                </Item>
+                <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={() => {this.setModalVisible(!this.state.modalVisible);}}>
+                  <Text>Vamo Junto?</Text>
+                </Button>                
+              </View>
+            </View>
+          </Modal>
+         
       </Content>
     )
   }
@@ -133,6 +170,7 @@ const styles = {
   personsStyle: {
     backgroundColor: '#FFF',
     flex: 1,
+    marginVertical: -25,
     resizeMode: 'contain',
     width: Dimensions.get('window').width
   },

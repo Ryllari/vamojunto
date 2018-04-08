@@ -31,6 +31,8 @@ import Friends from './friends'
 
 const vamojuntoInitImg = require('../statics/img/logo.png')
 
+const profileImg = require('../statics/img/profile.png')
+
 class Home extends Component {
 
   constructor(props) {
@@ -44,7 +46,7 @@ class Home extends Component {
   }
 
   render() {
-    const { vamojuntoInitStyle } = styles
+    const { vamojuntoInitStyle, profileStyle } = styles
 
     return (
       <Container>
@@ -53,10 +55,9 @@ class Home extends Component {
             <Title><Image style={vamojuntoInitStyle} source={vamojuntoInitImg} /></Title>
           </Body>
         </Header>
-
         <Tabs initialPage={1}>
           <Tab heading={<TabHeading><Icon name="person" /></TabHeading>}>
-            <Profile />
+            <Image style={profileStyle} source={profileImg} />
           </Tab>
           <Tab heading={<TabHeading><Icon name="shuffle" /></TabHeading>}>
             <Mark />
@@ -76,6 +77,12 @@ const styles = {
     flex: 1,
     height: 60,
     resizeMode: 'contain',
+  },
+  profileStyle: {
+    alignSelf: 'center',
+    flex: 1,
+    resizeMode: 'contain',
+    width: Dimensions.get('window').width * 0.8,
   }
 }
 
