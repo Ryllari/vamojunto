@@ -24,7 +24,7 @@ import {
 } from 'native-base'
 
 
-const persons = require('../statics/img/persons.png')
+const persons = require('../statics/img/map.png')
 
 class Mark extends Component {
 

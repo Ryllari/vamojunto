@@ -26,7 +26,7 @@ import {
 
 import Profile from './profile'
 import Mark from './mark'
-import ToLocate from './to-locate'
+import Friends from './friends'
 
 
 const vamojuntoInitImg = require('../statics/img/logo.png')
@@ -62,7 +62,7 @@ class Home extends Component {
             <Mark />
           </Tab>
           <Tab heading={<TabHeading><Icon name="navigate" /></TabHeading>}>
-            <ToLocate />
+            <Friends />
           </Tab>
         </Tabs>
       </Container>
