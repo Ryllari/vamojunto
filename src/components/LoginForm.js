@@ -72,57 +72,89 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { containerStyle, vamojuntoInitStyle } = styles
+    const {
+      vamojuntoLogoStyle,
+      inputStyle,
+      buttonLoginStyle,
+      noRegisterStyle,
+      registerStyle,
+      whiteColorStyle,
+      orangeColorStyle,
+      containerStyle,
+    } = styles
 
     return (
-      <Container style={containerStyle}>
+      <Container>
         <Content>
-          <Image style={vamojuntoInitStyle} source={vamojuntoLogo} />
+          <Image style={vamojuntoLogoStyle} source={vamojuntoLogo} />
           <Form>
-            <Item inlineLabel>
-              <Label>Email</Label>
+            <Item floatingLabel>
+              <Label style={whiteColorStyle}>Email</Label>
               <Input
-                placeholder="user@gmail.com"
+                style={inputStyle}
                 label="Email"
                 value={this.state.email}
                 onChangeText={email => this.setState({ email })}
               />
             </Item>
-            <Item inlineLabel last>
-              <Label>Password</Label>
+            <Item floatingLabel last>
+              <Label style={whiteColorStyle}>Password</Label>
               <Input
+                style={inputStyle}
                 secureTextEntry
-                placeholder="password"
                 label="Password"
                 value={this.state.password}
                 onChangeText={password => this.setState({ password })}
               />
             </Item>
           </Form>
-          <Button>
-            <Text>Login</Text>
+          <Right>
+            <Text style={orangeColorStyle}>Esqueceu sua senha?</Text>
+          </Right>
+          <Button style={buttonLoginStyle} onPress={this.onSingInPress.bind(this)}>
+            <Text style={whiteColorStyle}>Entrar</Text>
           </Button>
-          <Button>
-            <Text>Cadastrar</Text>
-          </Button>
+          <Text style={noRegisterStyle}>Ainda não tem conta?</Text>
+          <Text style={registerStyle}>REGISTRE-SE</Text>
         </Content>
       </Container>
     )
   }
 }
 
-
 const styles = StyleSheet.create({
-  containerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2B2D5C',
-  },
-  vamojuntoInitStyle: {
+  vamojuntoLogoStyle: {
     flex: 1,
     width: Dimensions.get('window').width,
-  }
+    resizeMode: 'contain',
+    top: 60,
+    bottom: 60,
+    paddingHorizontal: 10,
+  },
+  inputStyle: {
+    color: '#1e2040'
+  },
+  buttonLoginStyle: {
+    flex: 1,
+    alignSelf: 'center',
+    color: '#f7941e',
+  },
+  noRegisterStyle: {
+    flex: 1,
+    alignSelf: 'center',
+    color: '#f7941e'
+  },
+  registerStyle: {
+    flex: 1,
+    alignSelf: 'center',
+    color: '#fff'
+  },
+  whiteColorStyle: {
+    color: '#fff',
+  },
+  orangeColorStyle: {
+    color: '#f7941e'
+  },
 })
 
 export default connect(null, { singIn })(LoginForm)

@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { View, Image } from 'react-native'
+import { View, Dimensions, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCurrentUser, singOut } from '../actions'
 import firebase from 'firebase'
 
 import LoginForm from './LoginForm'
 import Home from './home'
-import { Button, Spinner, Card, CardSection } from './common'
+import Main from './main'
 
 
-const vamojuntoInitImg = require('../statics/img/vamojunto_init.png')
+const vamojuntoInitImg = require('../statics/img/logo.png')
 
 class Index extends Component {
 
@@ -42,6 +42,9 @@ class Index extends Component {
 
 const styles = {
   vamojuntoInitStyle: {
+    flex: 1,
+    resizeMode: 'contain',
+    width: Dimensions.get('window').width
   }
 }
 

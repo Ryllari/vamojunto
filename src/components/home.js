@@ -1,19 +1,35 @@
 import React, { Component } from 'react'
+import { Dimensions, Image, DrawerLayoutAndroid } from 'react-native'
 import {
+  Body,
+  Button,
   Container,
-  Header,
-  Title,
   Content,
   Footer,
   FooterTab,
-  Button,
-  Left,
-  Right,
-  Body,
+  Form,
+  Header,
   Icon,
-  Text
+  Input,
+  Item,
+  Label,
+  Left,
+  Radio,
+  Right,
+  Tab,
+  TabHeading,
+  Tabs,
+  Text,
+  Title,
+  View
 } from 'native-base'
 
+import Profile from './profile'
+import Mark from './mark'
+import ToLocate from './to-locate'
+
+
+const vamojuntoInitImg = require('../statics/img/logo.png')
 
 class Home extends Component {
 
@@ -28,32 +44,38 @@ class Home extends Component {
   }
 
   render() {
-    const { contentStyle } = styles
+    const { vamojuntoInitStyle } = styles
 
     return (
       <Container>
         <Header>
-          <Left>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
           <Body>
-            <Title>Vamo Junto?</Title>
+            <Title><Image style={vamojuntoInitStyle} source={vamojuntoInitImg} /></Title>
           </Body>
-          <Right />
         </Header>
-        <Content>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+
+        <Tabs initialPage={1}>
+          <Tab heading={<TabHeading><Icon name="person" /></TabHeading>}>
+            <Profile />
+          </Tab>
+          <Tab heading={<TabHeading><Icon name="shuffle" /></TabHeading>}>
+            <Mark />
+          </Tab>
+          <Tab heading={<TabHeading><Icon name="navigate" /></TabHeading>}>
+            <ToLocate />
+          </Tab>
+        </Tabs>
       </Container>
     )
+  }
+}
+
+const styles = {
+  vamojuntoInitStyle: {
+    alignSelf: 'center',
+    flex: 1,
+    height: 60,
+    resizeMode: 'contain',
   }
 }
 
