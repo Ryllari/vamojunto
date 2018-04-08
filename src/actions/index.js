@@ -5,18 +5,29 @@ import {
   SING_OUT,
   FETCH_USER,
   FETCH_USERS,
+  CREATE_PROFILE,
+  FETCH_PROFILE
 } from './types'
 
 
-export const createUser = (email, password) => {
+export const singUp = (user) => {
   return dispatch => firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
+    .createUserWithEmailAndPassword(user.email, user.password)
     .then(user => {
       if (user !== undefined) {
-        dispatch({
-          type: FETCH_USER,
-          payload: user
-        })
+        firebase.database()
+          .ref(`profile/${user.uid}`)
+          .set(user)
+          .then(user => {
+            console.log("USER", user)
+            dispatch({
+              type: FETCH_PROFILE,
+              payload: user
+            })
+          })
+          .catch((error) => {
+            console.log(`code: ${error.code} message: ${error.message}`)
+          })
       }
     })
     .catch(error => {
