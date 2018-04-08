@@ -84,10 +84,10 @@ class LoginForm extends Component {
     } = styles
 
     return (
-      <Container>
+      <Container style={{flex: 1, marginTop: 30}}>
         <Content>
           <Image style={vamojuntoLogoStyle} source={vamojuntoLogo} />
-          <Form>
+          <Form style={{marginTop: 60, marginHorizontal:20}}>
             <Item floatingLabel>
               <Label style={whiteColorStyle}>Email</Label>
               <Input
@@ -102,20 +102,19 @@ class LoginForm extends Component {
               <Input
                 style={inputStyle}
                 secureTextEntry
-                label="Password"
                 value={this.state.password}
                 onChangeText={password => this.setState({ password })}
               />
             </Item>
           </Form>
-          <Right>
-            <Text style={orangeColorStyle}>Esqueceu sua senha?</Text>
-          </Right>
-          <Button style={buttonLoginStyle} onPress={this.onSingInPress.bind(this)}>
+          
+          <Button transparent warning style={{alignSelf:'flex-end'}}><Text>Esqueceu sua senha?</Text></Button>
+          
+          <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={this.onSingInPress.bind(this)}>
             <Text style={whiteColorStyle}>Entrar</Text>
           </Button>
           <Text style={noRegisterStyle}>Ainda não tem conta?</Text>
-          <Text style={registerStyle}>REGISTRE-SE</Text>
+          <Button transparent warning style={{alignSelf:'center',}}><Text>REGISTRE-SE</Text></Button>
         </Content>
       </Container>
     )
@@ -124,30 +123,31 @@ class LoginForm extends Component {
 
 const styles = StyleSheet.create({
   vamojuntoLogoStyle: {
-    flex: 1,
     width: Dimensions.get('window').width,
     resizeMode: 'contain',
-    top: 60,
-    bottom: 60,
     paddingHorizontal: 10,
+    marginTop:60,
   },
   inputStyle: {
-    color: '#1e2040'
+    color: '#ccc',
+    left: 10,
   },
   buttonLoginStyle: {
     flex: 1,
     alignSelf: 'center',
     color: '#f7941e',
+    marginBottom: 20,
   },
   noRegisterStyle: {
     flex: 1,
     alignSelf: 'center',
-    color: '#f7941e'
+    color: '#fff',
+    marginTop: 20,
   },
   registerStyle: {
     flex: 1,
     alignSelf: 'center',
-    color: '#fff'
+
   },
   whiteColorStyle: {
     color: '#fff',

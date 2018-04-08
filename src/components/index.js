@@ -9,7 +9,7 @@ import Home from './home'
 import Main from './main'
 
 
-const vamojuntoInitImg = require('../statics/img/logo.png')
+const vamojuntoInitImg = require('../statics/img/icon-app.png')
 
 class Index extends Component {
 
