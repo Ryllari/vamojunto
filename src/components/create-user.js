@@ -14,32 +14,56 @@ import {
   Label,
   Left,
   Right,
+  Spinner,
   Text,
   Title
 } from 'native-base'
 import { connect } from 'react-redux'
-import { singUp } from '../actions'
+import { singUp, createUser } from '../actions'
 
 
-class CreateProfile extends Component {
+class CreateUser extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      name: '',
-      email: '',
-      password: ''
+      username: 'alissonrgs',
+      email: 'alissonrgs@vamojunto.com',
+      password: '123456',
+      password_confirm: '',
+      loading: false
     }
   }
 
   onSingUpPress() {
-    this.setState({
-      stars: 5,
-      photoURL: null
-    })
+    const { username, email, password } = this.state
+    const user = {
+      email: email,
+      password: password,
+      username: username,
+      stars: 5
+    }
 
-    this.props.singUp(this.state)
+    this.setState({ loading: true })
+    this.props.singUp(user, () => {
+      this.setState({ loading: false })
+    })
+  }
+
+  renderSingUpButton() {
+    if (this.state.loading) {
+      return <Spinner />
+    }
+
+    return (
+      <Button
+        warning
+        style={{alignSelf: 'center'}}
+        onPress={this.onSingUpPress.bind(this)}>
+        <Text>Registrar</Text>
+      </Button>
+    )
   }
 
   render() {
@@ -48,11 +72,11 @@ class CreateProfile extends Component {
         <Content>
           <Form>
             <Item floatingLabel>
-              <Label style={{color: '#fff'}}>Name</Label>
+              <Label style={{color: '#fff'}}>Username</Label>
               <Input
                 style={{color: '#ccc', left: 10}}
-                value={this.state.name}
-                onChangeText={name => this.setState({ name })}
+                value={this.state.username}
+                onChangeText={username => this.setState({ username })}
               />
             </Item>
             <Item floatingLabel>
@@ -73,13 +97,11 @@ class CreateProfile extends Component {
               />
             </Item>
           </Form>
-          <Button warning style={{alignSelf:'center'}} onPress={this.onSingUpPress.bind(this)}>
-            <Text>Registrar</Text>
-          </Button>
+          {this.renderSingUpButton()}
         </Content>
       </Container>
     )
   }
 }
 
-export default connect(null, { singUp })(CreateProfile)
+export default connect(null, { singUp, createUser })(CreateUser)

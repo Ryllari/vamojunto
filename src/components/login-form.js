@@ -28,7 +28,7 @@ import {
 } from 'native-base'
 import { singIn } from '../actions'
 
-import CreateProfile from './create-profile'
+import CreateUser from './create-user'
 
 
 const vamojuntoLogo = require("../statics/img/logo.png")
@@ -40,7 +40,7 @@ class LoginForm extends Component {
     super(props);
 
     this.state = {
-      email: 'teste@vamojunto.com',
+      email: 'alissonrgs@vamojunto.com',
       password: '123456',
       error: '',
       loading: false,
@@ -52,8 +52,7 @@ class LoginForm extends Component {
     const { email, password } = this.state
 
     this.setState({ loading: true })
-    this.props.singIn(email, password, (error) => {
-      console.log(`code: ${error.code} message: ${error.message}`)
+    this.props.singIn(email, password, () => {
       this.setState({ loading: false })
     })
   }
@@ -124,7 +123,7 @@ class LoginForm extends Component {
           </Content>
         </Container>
       )
-    return <CreateProfile />
+    return <CreateUser />
   }
 }
 

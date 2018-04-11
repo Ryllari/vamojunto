@@ -1,7 +1,7 @@
 import {
-  FETCH_USER,
   FETCH_PROFILE,
-  SING_OUT
+  FETCH_USER,
+  LOGOUT
 } from '../actions/types'
 
 
@@ -16,25 +16,19 @@ export default (state = initState, action) => {
         ...state,
         logged: true,
         uid: action.payload.uid,
-        name: action.payload.name,
         email: action.payload.email
       }
 
     case FETCH_PROFILE:
       return {
         ...state,
-        logged: true,
-        uid: action.payload.uid,
-        name: action.payload.name,
-        email: action.payload.email,
-        stars: action.payload.stars,
-        photoURL: action.payload.photoURL
+        username: action.payload.username,
+        picture: action.payload.picture,
+        stars: action.payload.stars
       }
 
-    case SING_OUT:
-      return {
-        logged: false
-      }
+    case LOGOUT:
+      return { logged: false }
 
     default:
       return state

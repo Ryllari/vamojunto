@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, Dimensions, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchCurrentUser, singOut } from '../actions'
+import { fetchCurrentUser, logOut, singOut } from '../actions'
 import firebase from 'firebase'
 
-import LoginForm from './LoginForm'
+import LoginForm from './login-form'
 import Home from './home'
 import Main from './main'
 import { Container } from 'native-base';
@@ -14,13 +14,14 @@ const vamojuntoInitImg = require('../statics/img/icon-app.png')
 
 class Index extends Component {
 
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user)
-        this.props.fetchCurrentUser(user)
-      else
-        this.props.singOut()
-    })
+  componentDidMount() {
+    firebase.auth()
+      .onAuthStateChanged(user => {
+        if (user)
+          this.props.fetchCurrentUser(user)
+        else
+          this.props.logOut()
+      })
   }
 
   onLogOutPress() {
@@ -39,10 +40,12 @@ class Index extends Component {
       default:
         return (
           <Container>
-        <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
-        <Text style={{alignSelf: 'center', color:'#FFF', marginTop:-40}} >Por que ir só se você pode ir acompanhado?</Text>
-        </Container>
-        ) 
+            <Image style={vamojuntoInitStyle} source={vamojuntoInitImg} />
+            <Text style={{alignSelf: 'center', color:'#FFF', marginTop:-40}} >
+              Por que ir só se você pode ir acompanhado?
+            </Text>
+          </Container>
+        )
       }
   }
 }
@@ -59,4 +62,4 @@ const mapStateToProps = ({ user }) => {
   return { user }
 }
 
-export default connect(mapStateToProps, { fetchCurrentUser, singOut })(Index)
+export default connect(mapStateToProps, { fetchCurrentUser, logOut, singOut })(Index)

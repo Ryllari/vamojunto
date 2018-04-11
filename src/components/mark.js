@@ -23,6 +23,7 @@ import {
   View,
   Textarea,
 } from 'native-base'
+import MapView from 'react-native-maps'
 
 
 const persons = require('../statics/img/map.png')
@@ -65,7 +66,7 @@ class Mark extends Component {
             this.setModalVisible(true);
           }}>
           <Image style={personsStyle} source={persons} />
-          </TouchableHighlight>
+        </TouchableHighlight>
         <Form style={{backgroundColor: '#2B2D5C'}}>
           <Item floatingLabel>
             <Label style={{color:'#FFF'}}>Ponto de Encontro</Label>
@@ -153,11 +154,11 @@ class Mark extends Component {
                 </Item>
                 <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={() => {this.setModalVisible(!this.state.modalVisible);}}>
                   <Text>Vamo Junto?</Text>
-                </Button>                
+                </Button>
               </View>
             </View>
           </Modal>
-         
+
       </Content>
     )
   }
