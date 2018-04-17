@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, Modal, TouchableHighlight, DrawerLayoutAndroid, TextInput } from 'react-native'
+import { 
+  Dimensions,
+  Image,
+  Modal,
+  PermissionsAndroid,
+  TextInput
+} from 'react-native'
+
 import {
   Body,
   Button,
@@ -23,12 +30,13 @@ import {
   View,
   Textarea,
 } from 'native-base'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 
 
 const persons = require('../statics/img/map.png')
 const person = require('../statics/img/rafaela.png')
 const star = require('../statics/img/star.png')
+const flagBlue = require('../statics/img/flag-blue.png')
 
 class Mark extends Component {
 
@@ -37,22 +45,48 @@ class Mark extends Component {
 
     this.state = {
       meeting_point: '',
-      transport: 'car',
       modalVisible: false,
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      },
+      transport: 'car'
     }
 
     this.selecteTransport = this.selecteTransport.bind(this)
+    this.onRegionChange = this.onRegionChange.bind(this)
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        region: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }
+      })
+    })
   }
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible })
   }
 
   selecteTransport(select) {
     this.setState({ transport: select })
   }
 
+  onRegionChange(region) {
+    this.setState({ region })
+  }
+
   render() {
+    const { latitude, longitude } = this.state.region
+
     const {
       personsStyle,
       buttonStyle,
@@ -60,13 +94,15 @@ class Mark extends Component {
     } = styles
 
     return (
-      <Content style={{alignSelf: 'center', }}>
-        <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Image style={personsStyle} source={persons} />
-        </TouchableHighlight>
+      <Content style={{ flex: 1, flexDirection: 'column' }}>
+        <MapView
+          style={{ width: Dimensions.get('window').width, height: 300 }}
+          region={this.state.region} >
+          <Marker
+            coordinate={{ latitude: latitude, longitude: longitude }}
+            image={flagBlue}
+          />
+        </MapView>
         <Form style={{backgroundColor: '#2B2D5C'}}>
           <Item floatingLabel>
             <Label style={{color:'#FFF'}}>Ponto de Encontro</Label>
@@ -136,29 +172,28 @@ class Mark extends Component {
             </Right>
           </ListItem>
         </Form>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              alert('Modal has been closed.');
-            }}>
-            <View style={{ flex: 1, marginTop: 100, color:'#2B2D5C', alignSelf: 'center'}}>
-              <View>
-                <Image style={{alignSelf: 'center', color:'#2B2D5C'}} source={person} />
-                <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >Gleydeanne Lucena</Text>
-                <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >3,9 <Image source={star} /></Text>
-                <Item floatingLabel regular last style={{height:40, marginTop: 20, color:'#FFF'}}>
-                  <Label>Escreva uma mensagem...</Label>
-                  <TextInput style={{height:40, marginTop: 20}}/>
-                </Item>
-                <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={() => {this.setModalVisible(!this.state.modalVisible);}}>
-                  <Text>Vamo Junto?</Text>
-                </Button>
-              </View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.')
+          }}>
+          <View style={{ flex: 1, marginTop: 100, color:'#2B2D5C', alignSelf: 'center'}}>
+            <View>
+              <Image style={{alignSelf: 'center', color:'#2B2D5C'}} source={person} />
+              <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >Gleydeanne Lucena</Text>
+              <Text style={{alignSelf: 'center', color:'#2B2D5C'}} >3,9 <Image source={star} /></Text>
+              <Item floatingLabel regular last style={{height:40, marginTop: 20, color:'#FFF'}}>
+                <Label>Escreva uma mensagem...</Label>
+                <TextInput style={{height:40, marginTop: 20}}/>
+              </Item>
+              <Button warning large style={{alignSelf:'center', marginTop:20}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+                <Text>Vamo Junto?</Text>
+              </Button>
             </View>
-          </Modal>
-
+          </View>
+        </Modal>
       </Content>
     )
   }
